@@ -1,8 +1,12 @@
 # Activate virtual environment
 source .venv/bin/activate
 
-# ENV
+# PYTHONPATH
 export PYTHONPATH=$PYTHONPATH:/opt/workspace/frame_info/src
-# export PYTHONPATH=$PYTHONPATH:/opt/workspace/locshapython/src
-# export PYTHONPATH=$PYTHONPATH:/opt/workspace/gim_package/src
+
+# PATH
 export PATH=$PATH:/opt/workspace/frame_info/bin
+
+# Aliases
+alias pyt='python -m unittest discover -s tests'
+alias cov='coverage run -m unittest discover -s tests'

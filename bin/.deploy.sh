@@ -1,6 +1,6 @@
 PACKAGE=frame_info
-injected_packages=(locshapython)
-injected_versions=(0.7)
+injected_packages=()
+injected_versions=()
 
 INSTALL_TYPE=cli_tool
 ACTION=$1

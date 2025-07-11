@@ -153,16 +153,41 @@ def __get_module_name(frame: FrameType) -> str:
     return frame.f_globals.get("__name__", "Unknown") if frame else "Unknown"
 
 
-def get_frame_info(index) -> dict[str, Any]:
-    """Get frame name and line number from a frame object.
+def __find_frame_by_name(name: str, offset: int = 0) -> FrameType | None:
+    """Find a frame by its function name.
 
     Args:
-        index (int): index of frame stack.
+        name (str): Function name to search for in the call stack.
+        offset (int): If frame is found, return the frame at this offset from the found frame.
+
+    Returns:
+        FrameType: Frame object if found, None otherwise.
+    """
+    frames = _collect_frame_stack()
+    for frame in frames:
+        if __get_frame_name(frame) == name:
+            index = frames.index(frame) + offset
+            return frames[index] if 0 <= index < len(frames) else None
+    return None
+
+
+def get_frame_info(index: int | None = None, offset: int = 1) -> dict[str, Any]:
+    """Get frame name and line number from a frame object.
+
+    If index is None, returns frame info of caller of this method.
+
+    Args:
+        index (int): index of frame stack or None
 
     Returns:
         tuple: (function name, line number)
     """
-    frame = __get_frame(index)
+    if index is None:
+        # Default to caller's frame if no index provided
+        frame = __find_frame_by_name("get_frame_info", offset=offset)
+    else:
+        frame = __get_frame(index)
+
     if not frame:
         return {
             "frame": None,
