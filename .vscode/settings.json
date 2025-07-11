@@ -1,0 +1,45 @@
+/*
+VS Code Settings for frame_info.
+*/
+
+{
+  "autopep8.args": [
+    "--max-line-length=88",
+    "--exclude=data,dist,build,.vscode,.git,tests/fixtures"
+  ],
+
+  /**
+   * EDITOR
+   */
+  "editor.tabSize": 4,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": null,
+  "files.exclude": {
+    "**/__pycache__/": true
+  },
+
+  /**
+   * PYTHON SETTINGS
+   */
+  "[python]": {
+      "editor.defaultFormatter": "ms-python.autopep8",
+      "editor.formatOnSave": true,
+  },
+
+  /**
+   * PYTHON EXTENSIONS SETTINGS
+   */
+  "python.analysis.extraPaths": ["./src"],
+  "python.testing.unittestEnabled": false,
+  "python.testing.unittestArgs": [
+    "-v",
+    "-s",
+    "./tests/extension",
+    "-p",
+    "*test*.py"
+  ],
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": ["tests/extension"],
+
+
+}

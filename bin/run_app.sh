@@ -1,0 +1,1 @@
+python -m src.frame_info.main "$@"
