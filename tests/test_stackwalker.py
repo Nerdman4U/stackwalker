@@ -60,6 +60,9 @@ class TestStackwalker(unittest.TestCase):
     def test_should_return_frame_name_list(self):
         """
         Test the frame name list functionality.
+
+        python -m unittest: returns module name with package name e.g. stackwalker.stackwalker
+        pytest: returns module name without package name e.g. stackwalker
         """
         __frame_name_list = stackwalker.get_frame_name_list()
         self.assertTrue(__frame_name_list)

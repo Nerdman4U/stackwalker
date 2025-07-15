@@ -96,16 +96,17 @@ def _collect_frame_stack() -> list[FrameType]:
     return frames
 
 
-def _get_frame(frame_index: int = -1) -> FrameType | None:
+def _get_frame(frame_index: int = -2) -> FrameType | None:
     """Get frame with bidirectional navigation using collected stack.
 
     Args:
         frame_index (int): index from current frame
-            - 0: current frame
-            - -1: immediate caller (1 step back)
-            - -2: caller's caller (2 steps back)
-            - +1: first frame in stack (deepest caller)
-            - +2: second frame in stack
+            -  0: _collect_frame_stack
+            - -1: _get_frame
+            - -2: caller of _get_frame
+            - -3: next caller in stack
+            - +1: stacks before stackwalker
+            - +2: ...
     """
     frames = _collect_frame_stack()
 
@@ -113,7 +114,7 @@ def _get_frame(frame_index: int = -1) -> FrameType | None:
         return None
 
     if frame_index == 0:
-        return frames[0]  # Current frame
+        return frames[0]  # _collect_frame_stack is the index 0
 
     if frame_index < 0:
         # Negative = go backwards (normal behavior)
@@ -273,13 +274,26 @@ if __name__ == "__main__":
             return
         __frame_name = _get_frame_name(__frame)
         __frame_line = _get_frame_line(__frame)
-        print(f"index: {index}, Name: {__frame_name}, Line: {__frame_line}")
+        __module_name = _get_module_name(__frame)
+        print(
+            f"index: {index}, Name: {__module_name}.{__frame_name}, Line: {__frame_line}")
+
+    def test3():
+        """Testing frame retrieval by name"""
+        for __frame in get_frame_name_list():
+            print(f"Frame found: {__frame}")
+        __frame3 = get_frame_by_name("test3", "__main__")
+        print(f"Frame by name: {__frame3}")
 
     # Test different indexes
-    print("=== Frame Navigation Test ===")
-    test1(0)   # test3 (current)
-    test1(-1)  # test2 (caller)
-    test1(-2)  # test1 (caller's caller)
-    test1(-3)  # __main__ (root)
-    test1(1)   # First frame (root caller)
-    test1(2)   # Second frame
+    # print("=== Frame Navigation Test ===")
+    # test1(0)   # Index: 0, Name: __main__._collect_frame_stack, Line: 96
+    # test1(-1)  # Index: -1, Name: __main__._get_frame, Line: 121
+    # test1(-2)  # Index: -2, Name: __main__.test2, Line: 27
+    # test1(-3)  # Index: -3, Name: __main__.test1, Line: 266
+    # test1(1)   # Index: 1, Name: __main__.<module>, Line: 284
+    # test1(2)   # Index: 2, Name: __main__.test1, Line: 266
+
+    # Test frame retrieval by name
+    # print("\n=== Frame Retrieval by Name Test ===")
+    # test3()

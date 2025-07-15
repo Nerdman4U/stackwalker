@@ -47,9 +47,9 @@ def target_function():
 
 Get frame information by index position.
 
--   `index = 0`: Current frame
--   `index < 0`: Navigate backward to callers (-1 = immediate caller)
--   `index > 0`: Navigate forward from root caller
+-   `index = 0`: \_collect_frame_stack()
+-   `index < 0`: Navigate backward to callers, -4 is caller of get_frame_by_index.
+-   `index > 0`: Navigate forward from root caller (frames before stackwalker)
 
 #### `get_frame_by_name(caller_name: str, module_name: str, offset: int = 1)`
 
@@ -84,17 +84,6 @@ Each frame returns a dictionary with:
 -   **Code Analysis**: Analyze call patterns and stack traces
 -   **Testing Utilities**: Inspect test execution context
 -   **Profiling**: Track function call hierarchies
-
-## Frame Index Reference
-
-```
-Call Stack:     Frame Index:
-                Negative  Positive
-main()          -3        1
-├─ func_a()     -2        2
-   ├─ func_b()  -1        3
-      └─ here   0         4 (current)
-```
 
 ## Requirements
 
