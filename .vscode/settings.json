@@ -34,12 +34,12 @@ VS Code Settings for frame_info.
   "python.testing.unittestArgs": [
     "-v",
     "-s",
-    "./tests/extension",
+    "./tests",
     "-p",
     "*test*.py"
   ],
   "python.testing.pytestEnabled": true,
-  "python.testing.pytestArgs": ["tests/extension"],
+  "python.testing.pytestArgs": ["tests"],
 
 
 }

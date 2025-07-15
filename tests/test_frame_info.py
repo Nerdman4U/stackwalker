@@ -1,13 +1,13 @@
 """
 Test suite for FrameInfo functionality.
 """
-from tests.base_test_class import BaseTestClass
+import unittest
 
 # Assuming FrameInfo is defined in frame_info module
 from frame_info import frame_info
 
 
-class TestFrameInfo(BaseTestClass):
+class TestFrameInfo(unittest.TestCase):
     """
     Test class for FrameInfo.
     """
@@ -69,9 +69,14 @@ class TestFrameInfo(BaseTestClass):
         # import pprint
         # pprint.pprint(__frame_name_list[0:3])
 
-        # Check if the first frame name is the current function
-        self.assertEqual(__frame_name_list[0:3], [
-            ("frame_info.frame_info", "_collect_frame_stack"),
-            ("frame_info.frame_info", "get_frame_name_list"),
-            ("test_frame_info", "test_should_return_frame_name_list")
-        ])
+        self.assertEqual(
+            __frame_name_list[0], ("frame_info.frame_info", "_collect_frame_stack"))
+        self.assertEqual(
+            __frame_name_list[1], ("frame_info.frame_info", "get_frame_name_list"))
+        self.assertTrue(
+            __frame_name_list[2][0].endswith("test_frame_info")
+        )
+        self.assertEqual(
+            __frame_name_list[2][1],
+            "test_should_return_frame_name_list"
+        )

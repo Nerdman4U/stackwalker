@@ -16,11 +16,8 @@ Features:
     - Safe frame inspection with graceful error handling
     - Function name and line number extraction utilities
 
-Functions:
-    _collect_frame_stack: Collect all frames in the current call stack
-    _get_frame: Navigate through the call stack by a specified index (bidirectional)
-    _get_frame_name: Extract the function name from a frame object
-    _get_frame_line: Extract the line number from a frame object
+Public functions:
+
 
 Example:
     Basic frame inspection:
@@ -217,10 +214,6 @@ def get_frame_by_index(index: int = -4) -> dict[str, Any]:
     Returns:
         tuple: (function name, line number)
     """
-    # if index is None:
-    #     # Default to caller's frame if no index provided
-    #     frame = __find_frame_by_name("get_frame_info", offset=offset)
-    # else:
     frame = _get_frame(index)
 
     if not frame:
