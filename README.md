@@ -1,4 +1,4 @@
-# FRAME_INFO
+# STACKWALKER
 
 A Python library for bidirectional call stack inspection and frame analysis. Provides utilities for walking through Python's call stack in both directions - from current frame to callers (backward) and from root to current frame (forward).
 
@@ -19,22 +19,22 @@ pip install frame-info
 ## Quick Start
 
 ```python
-from frame_info import frame_info
+from stackwalker import stackwalker
 
 def caller_function():
     target_function()
 
 def target_function():
     # Get current frame info
-    current = frame_info.get_frame_by_index(0)
+    current = stackwalker.get_frame_by_index(0)
     print(f"Current: {current['caller_name']}")  # target_function
 
     # Get caller frame info
-    caller = frame_info.get_frame_by_index(-1)
+    caller = stackwalker.get_frame_by_index(-1)
     print(f"Caller: {caller['caller_name']}")   # caller_function
 
     # Get complete frame list
-    frames = frame_info.get_frame_list()
+    frames = stackwalker.get_frame_list()
     for frame in frames:
         print(f"{frame['caller_name']} at line {frame['caller_line']}")
 ```
@@ -105,10 +105,10 @@ main()          -3        1
 
 ```bash
 # Using unittest
-python -m unittest tests.test_frame_info
+python -m unittest tests.test_stackwalker
 
 # Using pytest
-pytest tests/test_frame_info.py
+pytest tests/test_stackwalker.py
 ```
 
 ## License

@@ -1,7 +1,6 @@
 """
-frame_info
+stackwalker/__init__.py
 """
-
 import importlib.metadata
 
 try:

@@ -1,4 +1,4 @@
-PACKAGE=frame_info
+PACKAGE=stackwalker
 injected_packages=()
 injected_versions=()
 

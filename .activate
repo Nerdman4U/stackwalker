@@ -2,10 +2,10 @@
 source .venv/bin/activate
 
 # PYTHONPATH
-export PYTHONPATH=$PYTHONPATH:/opt/workspace/frame_info/src
+export PYTHONPATH=$PYTHONPATH:/opt/workspace/stackwalker/src
 
 # PATH
-export PATH=$PATH:/opt/workspace/frame_info/bin
+export PATH=$PATH:/opt/workspace/stackwalker/bin
 
 # Aliases
 alias pyt='python -m unittest discover -s tests'

@@ -1,15 +1,14 @@
 """
-Test suite for FrameInfo functionality.
+Test suite for Stackwalker functionality.
 """
 import unittest
 
-# Assuming FrameInfo is defined in frame_info module
-from frame_info import frame_info
+from stackwalker import stackwalker
 
 
-class TestFrameInfo(unittest.TestCase):
+class TestStackwalker(unittest.TestCase):
     """
-    Test class for FrameInfo.
+    Test class for Stackwalker.
     """
 
     def test_get_frame_by_index(self):
@@ -17,19 +16,19 @@ class TestFrameInfo(unittest.TestCase):
         Test the frame info functionality.
         """
         # Add your test logic here
-        __frame = frame_info.get_frame_by_index(0)
+        __frame = stackwalker.get_frame_by_index(0)
         self.assertTrue(__frame)
         self.assertEqual(__frame["caller_name"], "_collect_frame_stack")
 
-        __frame = frame_info.get_frame_by_index(-1)
+        __frame = stackwalker.get_frame_by_index(-1)
         self.assertTrue(__frame)
         self.assertEqual(__frame["caller_name"], "_get_frame")
 
-        __frame = frame_info.get_frame_by_index(-2)
+        __frame = stackwalker.get_frame_by_index(-2)
         self.assertTrue(__frame)
         self.assertEqual(__frame["caller_name"], "get_frame_by_index")
 
-        __frame = frame_info.get_frame_by_index(-3)
+        __frame = stackwalker.get_frame_by_index(-3)
         self.assertTrue(__frame)
         self.assertEqual(__frame["caller_name"], "test_get_frame_by_index")
 
@@ -37,20 +36,20 @@ class TestFrameInfo(unittest.TestCase):
         """
         Test finding a frame by its name.
         """
-        __frame = frame_info.get_frame_by_name(
+        __frame = stackwalker.get_frame_by_name(
             caller_name="_collect_frame_stack",
-            module_name="frame_info.frame_info",
+            module_name="stackwalker.stackwalker",
             offset=0
         )
         self.assertTrue(__frame)
         self.assertEqual(__frame["caller_name"], "_collect_frame_stack")
-        self.assertEqual(__frame["module_name"], "frame_info.frame_info")
+        self.assertEqual(__frame["module_name"], "stackwalker.stackwalker")
 
     def test_should_return_frame_list(self):
         """
         Test the frame list functionality.
         """
-        __frame_list = frame_info.get_frame_list()
+        __frame_list = stackwalker.get_frame_list()
         self.assertTrue(__frame_list)
         self.assertGreater(len(__frame_list), 0)
 
@@ -62,7 +61,7 @@ class TestFrameInfo(unittest.TestCase):
         """
         Test the frame name list functionality.
         """
-        __frame_name_list = frame_info.get_frame_name_list()
+        __frame_name_list = stackwalker.get_frame_name_list()
         self.assertTrue(__frame_name_list)
         self.assertGreater(len(__frame_name_list), 0)
 
@@ -70,11 +69,11 @@ class TestFrameInfo(unittest.TestCase):
         # pprint.pprint(__frame_name_list[0:3])
 
         self.assertEqual(
-            __frame_name_list[0], ("frame_info.frame_info", "_collect_frame_stack"))
+            __frame_name_list[0], ("stackwalker.stackwalker", "_collect_frame_stack"))
         self.assertEqual(
-            __frame_name_list[1], ("frame_info.frame_info", "get_frame_name_list"))
+            __frame_name_list[1], ("stackwalker.stackwalker", "get_frame_name_list"))
         self.assertTrue(
-            __frame_name_list[2][0].endswith("test_frame_info")
+            __frame_name_list[2][0].endswith("test_stackwalker")
         )
         self.assertEqual(
             __frame_name_list[2][1],
